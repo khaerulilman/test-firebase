@@ -13,6 +13,7 @@
         <input type="text" name="nomor" id="nomor" placeholder="Masukkan nomor">
         <button type="submit">Submit</button>
     </form>
+    <li id="list_timer"> </li> 
 
     <h2>Data dari Firebase:</h2>
     <ul id="dataList"></ul>
@@ -43,6 +44,9 @@
             const nama = document.getElementById('nama').value;
             const nomor = document.getElementById('nomor').value;
 
+            // Save nomor to timer variable
+            const timer = nomor;
+
             // Write data to Firebase
             set(ref(database, 'users/' + Date.now()), {
                 nama: nama,
@@ -51,6 +55,10 @@
                 alert('Data berhasil ditambahkan!');
                 // Refresh the data list
                 fetchData();
+
+                // Update the timer display
+                const timerDisplay = document.getElementById('list_timer');
+                timerDisplay.textContent = `Timer: ${timer}`;
             }).catch((error) => {
                 console.error('Gagal menambahkan data: ', error);
             });
